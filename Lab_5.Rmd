@@ -60,6 +60,22 @@ milk1996_summary <- milk1996 %>%
 milk1996_summary
 ```
 
+###Richard's Findings
+```{r}
+milk1999 <- milk %>%
+  filter(year == 1999)
+ggplot(data = milk1999, aes(x = milk_million))+
+  geom_density()+
+  labs(x = "milk produced(by millions)", title = "Distribution of Milk produced in 1999")
 
+milk1999_summary <- milk1999 %>%
+  filter(year == 1999)%>%
+  arrange(desc(milk_million))%>%
+  summarise(production_avg = mean(milk_million),
+            production_median = median(milk_million),
+            highest_production = first(state),
+            lowest_production = last(state))%>%
+  mutate(production_avg = production_avg, production_median = production_median, highest_production = highest_production, lowest_production = lowest_production)
 
-
+milk1999_summary
+```
