@@ -61,6 +61,7 @@ milk1996_summary
 ```
 
 ###Richard's Findings
+
 ```{r}
 milk1999 <- milk %>%
   filter(year == 1999)
@@ -79,3 +80,30 @@ milk1999_summary <- milk1999 %>%
 
 milk1999_summary
 ```
+
+###Jasmine's Findings
+```{r}
+milk <- read.csv('state_milk_production.csv')
+milk <- milk %>%
+  mutate(milk_million = milk_produced/1000000)
+milk1998 <- milk %>%
+  filter(year == 1998)
+ggplot(data = milk1998, aes(x = milk_million)) +
+  geom_density() + 
+  ggtitle('Distribution estimate of milk produced in 1998 by state')
+
+median_milk <- milk1998 %>%
+  filter(year == 1998)%>%
+  arrange(desc(milk_million))%>%
+  summarise(production_avg = mean(milk_million),
+            production_median = median(milk_million),
+            highest_production = first(state),
+            lowest_production = last(state))%>%
+  mutate(production_avg = production_avg, production_median = production_median, highest_production = highest_production, lowest_production = lowest_production)
+
+```
+```{r echo=FALSE, results = 'asis'}
+library(knitr)
+kable(median_milk, caption = "Production Levels 1998")
+```
+
