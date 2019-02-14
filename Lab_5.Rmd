@@ -57,7 +57,10 @@ milk1996_summary <- milk1996 %>%
             lowest_production = last(state))%>%
   mutate(production_avg = production_avg, production_median = production_median, highest_production = highest_production, lowest_production = lowest_production)
 
-milk1996_summary
+```
+```{r echo= FALSE, results = 'asis'}
+library(knitr)
+kable(milk1996_summary, caption = "Production Report")
 ```
 
 ###Richard's Findings
@@ -82,6 +85,7 @@ milk1999_summary
 ```
 
 ###Jasmine's Findings
+
 ```{r}
 milk <- read.csv('state_milk_production.csv')
 milk <- milk %>%
