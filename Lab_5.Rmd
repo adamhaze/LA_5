@@ -63,6 +63,36 @@ library(knitr)
 kable(yearof_least_milk, caption = "Year of the LEAST milk production")
 ```
 
+###Five states that produced the most milk in 2017
+```{r}
+most_milk_2017 <- milk %>% 
+  arrange(desc(milk_million)) %>% 
+  summarise(highest_production = first(year==2017)) %>%
+  top_n(5)%>%
+  mutate(highest_production = highest_production)
+```
+
+```{r echo=False, results = 'asis'}
+library(knitr)
+kable(most_milk_2017, caption = "Top 5 States in 2017, Most Amount of Milk Production")
+
+```
+
+### Five states that produced the least amount of milk in 2017
+```{r}
+least_milk_2017 <- milk %>% 
+  arrange(desc(milk_million)) %>% 
+  summarise(lowest_production = last(year==2017)) %>%
+  top_n(5)%>%
+  mutate(lowest_production = lowest_production)
+```
+
+```{r echo=False, results = 'asis'}
+library(knitr)
+kable(least_milk_2017, caption = "Top 5 States in 2017, Least Amount of Milk Production")
+```
+
+
 ###Adam's Findings
 
 ```{r}
