@@ -37,7 +37,31 @@ ggplot()+
 ###Comments
 The black line which is not labeled in the legend represents the average milk production for all states, by year.  What this shows on our graph is that we have 2 states (Texas and Washington) that consistently produce more milk than the average state produces.  It also shows we have 3 states (Florida, Colorado, and Oregon) that continually produce less milk than average.  It is interesting to see how all 5 of these states have remained consistently under or above the average state production levels for milk.  It is also interesting to see how rapidly Texas has expanded its milk production while the other states (including the average between all states) have continued on a consistently slow incline of production.
 
+###When the Most Milk was Produced
 
+```{r}
+yearof_most_milk <- milk %>% 
+  arrange(desc(milk_million)) %>% 
+  summarise(highest_production = first(year)) %>% 
+  mutate(highest_production = highest_production)
+```
+```{r echo=FALSE, results = 'asis'}
+library(knitr)
+kable(yearof_most_milk, caption = "Year of the MOST milk production")
+```
+
+###When the Least Milk was Produced
+
+```{r}
+yearof_least_milk <- milk %>% 
+  arrange(desc(milk_million)) %>% 
+  summarise(lowest_production = last(year)) %>% 
+  mutate(lowest_production = lowest_production)
+```
+```{r echo=FALSE, results = 'asis'}
+library(knitr)
+kable(yearof_least_milk, caption = "Year of the LEAST milk production")
+```
 
 ###Adam's Findings
 
@@ -73,15 +97,17 @@ ggplot(data = milk1999, aes(x = milk_million))+
   labs(x = "milk produced(by millions)", title = "Distribution of Milk produced in 1999")
 
 milk1999_summary <- milk1999 %>%
-  filter(year == 1999)%>%
-  arrange(desc(milk_million))%>%
+  filter(year == 1999) %>%
+  arrange(desc(milk_million)) %>%
   summarise(production_avg = mean(milk_million),
             production_median = median(milk_million),
             highest_production = first(state),
-            lowest_production = last(state))%>%
+            lowest_production = last(state)) %>%
   mutate(production_avg = production_avg, production_median = production_median, highest_production = highest_production, lowest_production = lowest_production)
-
-milk1999_summary
+```
+```{r echo=FALSE, results = 'asis'}
+library(knitr)
+kable(milk1999_summary, caption = "Production Levels 1999")
 ```
 
 ###Jasmine's Findings
@@ -110,4 +136,28 @@ median_milk <- milk1998 %>%
 library(knitr)
 kable(median_milk, caption = "Production Levels 1998")
 ```
+
+###Erin's Findings
+
+```{r}
+milk2000 <- milk %>% 
+  filter(year==2000)
+ggplot(data = milk2000, aes(x = milk_million)) + geom_density() + labs(x = "milk produced(by millions)", title = "Distribution of Milk produced in 2000")
+```
+```{r}
+milk2000_summary <- milk2000 %>%
+  filter(year == 2000) %>%
+  arrange(desc(milk_million)) %>%
+  summarise(production_avg = mean(milk_million),
+            production_median = median(milk_million),
+            highest_production = first(state),
+            lowest_production = last(state)) %>%
+  mutate(production_avg = production_avg, production_median = production_median, highest_production = highest_production, lowest_production = lowest_production)
+```
+```{r echo=FALSE, results = 'asis'}
+library(knitr)
+kable(milk2000_summary, caption = "Production Levels 2000")
+```
+
+
 
